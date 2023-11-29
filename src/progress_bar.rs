@@ -429,6 +429,21 @@ impl ProgressBar {
         it.progress_with(self.clone())
     }
 
+    /// Wraps a [`crate::ParallelProgressIterator`] with the progress bar
+    ///
+    /// ```rust,no_run
+    /// # use indicatif::{ProgressBar, ParallelProgressIterator};
+    /// use rayon::prelude::*;
+    /// let v = vec![1, 2, 3];
+    /// let pb = ProgressBar::new(3);
+    ///
+    /// pb.wrap_par_iter(v.par_iter()).for_each(|_| { /*...*/ });
+    /// ```
+    #[cfg(feature = "rayon")]
+    pub fn wrap_par_iter<It: crate::ParallelProgressIterator>(&self, it: It) -> ProgressBarIter<It> {
+        it.progress_with(self.clone())
+    }
+
     /// Wraps an [`io::Read`] with the progress bar
     ///
     /// ```rust,no_run

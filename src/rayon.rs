@@ -226,6 +226,11 @@ mod test {
         });
 
         wrap({
+            let pb = ProgressBar::new(v.len() as u64);
+            pb.wrap_par_iter(v.par_iter())
+        });
+
+        wrap({
             let style = ProgressStyle::default_bar()
                 .template("{wide_bar:.red} {percent}/100%")
                 .unwrap();
